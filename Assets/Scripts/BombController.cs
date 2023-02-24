@@ -13,7 +13,7 @@ public class BombController : MonoBehaviour
     public KeyCode inputkey = KeyCode.Space;
     public float bombfusetime = 3f;
     public int bombAmount = 1;
-    private int bombsRemaining;
+    private int bombsRemaining;//1.49
 
     [Header("Explosion")]
     public Explosion Explosionprefab;
@@ -112,5 +112,11 @@ public class BombController : MonoBehaviour
         {
             other.isTrigger = false;// bombanin içinden geçemiyoruz.
         }
+    }
+
+    public void AddBomb()
+    {
+        bombAmount++;
+        bombsRemaining++;
     }
 }
