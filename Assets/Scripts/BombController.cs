@@ -66,9 +66,6 @@ public class BombController : MonoBehaviour
         
         Destroy(bomb);
         bombsRemaining++;
-
-
-
     }
 
     private void explode(Vector2 position, Vector2 direction,int length)
@@ -80,8 +77,15 @@ public class BombController : MonoBehaviour
 
         position += direction;
 
-        if (Physics2D.OverlapBox(position,Vector2.one/2f,ExploisonLayerMask))//returns collider
+        var tempCollider = Physics2D.OverlapBox(position, Vector2.one / 2f, ExploisonLayerMask);
+        
+        //Debug.Log("Direction " + direction + " Col: " + tempCollider.gameObject.name + " Length " + length);
+        
+        if (tempCollider)//returns collider
         {
+            if(tempCollider.TryGetComponent(out MovementController script))
+                script.DeathSequence();
+            Debug.Log("Direction " + direction + " Collided ");
             ClearDestructible(position);
             return;
         }
@@ -91,7 +95,6 @@ public class BombController : MonoBehaviour
         explosion.DestroyAfter(explosionduration);
         Destroy(explosion.gameObject,explosionduration);
         explode(position,direction,length-1);//length bitene kdr patlar.
-        
     }
 
     private void ClearDestructible(Vector2 position)

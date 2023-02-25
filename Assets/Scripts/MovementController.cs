@@ -22,6 +22,8 @@ public class MovementController : MonoBehaviour
     public AnimatedSpriteRenderer SpriteRendererdeath;
     private AnimatedSpriteRenderer activeSpriteRenderer;
 
+    private bool isDead = false;
+
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -72,8 +74,9 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    private void DeathSequence()
+    public void DeathSequence()
     {
+        if(isDead) return;
         enabled = false;
         GetComponent<BombController>().enabled = false;
         spriteRendererUp.enabled = false;
